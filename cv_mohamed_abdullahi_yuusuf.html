@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Abdullahi Yuusuf - Portfolio & CV</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0A192F;
+            --bg-card: rgba(17, 34, 64, 0.75);
+            --border-card: rgba(45, 212, 191, 0.2);
+            --accent-teal: #2DD4BF;
+            --accent-cyan: #06B6D4;
+            --text-heading: #FFFFFF;
+            --text-body: #F8FAFC;
+            --text-sub: #CBD5E1;
+            --glow-color: rgba(45, 212, 191, 0.15);
+        }
+
+        [data-bs-theme="light"] {
+            --bg-primary: #F8FAFC;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --border-card: rgba(13, 148, 136, 0.2);
+            --accent-teal: #0D9488;
+            --accent-cyan: #0284C7;
+            --text-heading: #0F172A;
+            --text-body: #1E293B;
+            --text-sub: #334155;
+            --glow-color: rgba(13, 148, 136, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-body) !important;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glass-card {
+            background: var(--bg-card) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-card) !important;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-teal) !important;
+            box-shadow: 0 20px 40px -15px var(--glow-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-heading) !important;
+            font-weight: 700;
+        }
+
+        p, span, li, label, div {
+            color: var(--text-body) !important;
+        }
+
+        .text-accent {
+            color: var(--accent-teal) !important;
+        }
+
+        .profile-img-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-cyan));
+            box-shadow: 0 0 25px var(--accent-teal);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+        }
+
+        .hero-title {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--text-heading) 30%, var(--accent-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .typing-text {
+            color: var(--accent-teal) !important;
+            font-family: 'JetBrains Mono', monospace;
+            border-right: 3px solid var(--accent-teal);
+            animation: blink 0.75s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-teal); }
+        }
+
+        .btn-teal {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-cyan));
+            color: #0A192F !important;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 24px;
+            box-shadow: 0 4px 15px var(--glow-color);
+            transition: all 0.3s ease;
+        }
+
+        .btn-teal:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 25px var(--accent-teal);
+            color: #0A192F !important;
+        }
+
+        .btn-outline-custom {
+            border: 2px solid var(--accent-teal) !important;
+            color: var(--text-heading) !important;
+            border-radius: 50px;
+            padding: 8px 22px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-custom:hover, .btn-outline-custom.active {
+            background: var(--accent-teal) !important;
+            color: #0A192F !important;
+        }
+
+        .skill-badge {
+            background: rgba(45, 212, 191, 0.1) !important;
+            border: 1px solid var(--accent-teal) !important;
+            color: var(--accent-teal) !important;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-badge:hover {
+            background: var(--accent-teal) !important;
+            color: #0A192F !important;
+            transform: translateY(-2px);
+        }
+
+        .project-card {
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 20px;
+            background: rgba(10, 25, 47, 0.5);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-teal);
+            transform: translateY(-5px);
+        }
+
+        .modal-content {
+            background-color: #112240 !important;
+            border: 1px solid var(--accent-teal);
+            border-radius: 20px;
+            color: var(--text-body);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid var(--accent-teal);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-teal);
+            box-shadow: 0 0 10px var(--accent-teal);
+        }
+
+        @media print {
+            #particle-canvas, .no-print, .btn, #theme-toggle {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .glass-card {
+                background: transparent !important;
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+            }
+            p, h1, h2, h3, h4, span, li, label {
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg pt-4 pb-3 no-print">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <span class="fs-4 fw-bold text-accent">My Portfolio</span>
+            </a>
+            <div class="d-flex align-items-center gap-3">
+                <button id="theme-toggle" class="btn btn-outline-custom fs-5" title="Toggle Light/Dark Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button onclick="window.print()" class="btn btn-outline-custom d-none d-md-inline-block">
+                    <i class="fa-solid fa-print me-2"></i> Print / Save PDF
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container my-4 my-md-5">
+        <div class="row g-4">
+            
+            <!-- Left Sidebar Profile -->
+            <div class="col-lg-4">
+                <div class="glass-card p-4 text-center h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <!-- Profile Image Section -->
+                        <div class="profile-img-container mb-4">
+                            <img src="Profile.jpg.jpeg" alt="Mohamed Abdullahi Yuusuf" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Mohamed+Yuusuf&background=2DD4BF&color=0A192F'">
+                        </div>
+                        <h1 class="h3 mb-2">Mohamed Abdullahi Yuusuf</h1>
+                        <p class="text-accent fw-bold mb-3 fs-5">Database Engineer & DBA</p>
+                        
+                        <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
+                            <span class="skill-badge"><i class="fa-solid fa-database"></i> SQL Expert</span>
+                            <span class="skill-badge"><i class="fa-solid fa-shield-halved"></i> Security</span>
+                        </div>
+
+                        <hr class="my-4 opacity-25" style="border-color: var(--accent-teal);">
+
+                        <div class="text-start d-flex flex-column gap-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="fs-4 text-accent"><i class="fa-regular fa-envelope"></i></div>
+                                <div>
+                                    <small class="text-accent d-block fw-semibold">Email Address</small>
+                                    <span class="fw-semibold">amiinabdalla909@gmail.com</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="fs-4 text-accent"><i class="fa-solid fa-graduation-cap"></i></div>
+                                <div>
+                                    <small class="text-accent d-block fw-semibold">Degree Program</small>
+                                    <span class="fw-semibold">Computer Science</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="fs-4 text-accent"><i class="fa-solid fa-server"></i></div>
+                                <div>
+                                    <small class="text-accent d-block fw-semibold">Specialization</small>
+                                    <span class="fw-semibold">Oracle & T-SQL Database Systems</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-3 no-print d-flex flex-column gap-2">
+                        <a href="mailto:amiinabdalla909@gmail.com" class="btn btn-teal w-100">
+                            <i class="fa-solid fa-paper-plane me-2"></i> Send Email
+                        </a>
+                        <button onclick="window.print()" class="btn btn-outline-custom w-100 d-md-none">
+                            <i class="fa-solid fa-print me-2"></i> Save PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Main Area -->
+            <div class="col-lg-8">
+                <div class="d-flex flex-column gap-4">
+                    
+                    <!-- Hero Section -->
+                    <div class="glass-card p-4 p-md-5">
+                        <span class="badge bg-transparent border text-accent px-3 py-2 rounded-pill mb-3">DATABASE ARCHITECT & DBA</span>
+                        <h2 class="hero-title mb-3">Hi, I'm Mohamed</h2>
+                        <h3 class="h4 mb-4">I am a <span class="typing-text" id="typing-element"></span></h3>
+                        <p class="fs-5 lh-lg mb-0">
+                            I am a passionate and detail-oriented Database Engineer and Database Administrator interested in database design, SQL, data security, performance optimization, and reliable data management solutions. I am committed to continuous learning and building efficient database systems.
+                        </p>
+                    </div>
+
+                    <!-- FEATURED GITHUB PROJECTS SECTION -->
+                    <div class="glass-card p-4 p-md-5">
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+                            <h3 class="h4 mb-0 d-flex align-items-center gap-3">
+                                <i class="fa-solid fa-diagram-project text-accent"></i> My GitHub Projects
+                            </h3>
+                            <!-- Filter Buttons -->
+                            <div class="d-flex gap-2 flex-wrap">
+                                <button class="btn btn-outline-custom active btn-sm" onclick="filterProjects('all', event)">All Projects</button>
+                                <button class="btn btn-outline-custom btn-sm" onclick="filterProjects('tsql', event)">T-SQL / SQL Server</button>
+                                <button class="btn btn-outline-custom btn-sm" onclick="filterProjects('oracle', event)">Oracle & Power BI</button>
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <!-- Project 1: Oracle Power BI School Management -->
+                            <div class="col-md-6 project-item oracle">
+                                <div class="project-card">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-warning text-dark fw-bold">Oracle & Power BI</span>
+                                            <i class="fa-solid fa-chart-pie text-accent fs-4"></i>
+                                        </div>
+                                        <h4 class="h6 text-accent mb-2">Oracle-PowerBI-School-Management</h4>
+                                        <p class="small text-sub mb-3">
+                                            An end-to-end Enterprise School Management Analytics project using Oracle SQL relational database and interactive Power BI dashboards.
+                                        </p>
+                                    </div>
+                                    <button class="btn btn-teal btn-sm w-100" data-bs-toggle="modal" data-bs-target="#modalSchool">
+                                        View Details <i class="fa-solid fa-arrow-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Project 2: SQL Hotel Management System -->
+                            <div class="col-md-6 project-item tsql">
+                                <div class="project-card">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-info text-dark fw-bold">T-SQL / SQL Server</span>
+                                            <i class="fa-solid fa-hotel text-accent fs-4"></i>
+                                        </div>
+                                        <h4 class="h6 text-accent mb-2">SQL-Hotel-Management-System</h4>
+                                        <p class="small text-sub mb-3">
+                                            Production-ready SQL Server database & Power BI solution for hotel management, bookings, guest tracking, multi-user permissions, and automated backups.
+                                        </p>
+                                    </div>
+                                    <button class="btn btn-teal btn-sm w-100" data-bs-toggle="modal" data-bs-target="#modalHotel">
+                                        View Details <i class="fa-solid fa-arrow-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Project 3: Bank Management System -->
+                            <div class="col-md-6 project-item tsql">
+                                <div class="project-card">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-info text-dark fw-bold">T-SQL / SQL Server</span>
+                                            <i class="fa-solid fa-building-columns text-accent fs-4"></i>
+                                        </div>
+                                        <h4 class="h6 text-accent mb-2">Bank-management-system-db</h4>
+                                        <p class="small text-sub mb-3">
+                                            A robust relational database architecture for modern retail banking systems (suitable for Salaam Somali Bank, Dahabshiil Bank, etc.).
+                                        </p>
+                                    </div>
+                                    <button class="btn btn-teal btn-sm w-100" data-bs-toggle="modal" data-bs-target="#modalBank">
+                                        View Details <i class="fa-solid fa-arrow-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Project 4: Golis Telecom Employee Database -->
+                            <div class="col-md-6 project-item tsql">
+                                <div class="project-card">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-info text-dark fw-bold">T-SQL / HR DB</span>
+                                            <i class="fa-solid fa-users text-accent fs-4"></i>
+                                        </div>
+                                        <h4 class="h6 text-accent mb-2">Golis-Telecom-Somalia-Employee-Database</h4>
+                                        <p class="small text-sub mb-3">
+                                            Relational SQL database designed for Golis Telecom to manage employee records, company branches, departments, monthly payroll, and daily attendance.
+                                        </p>
+                                    </div>
+                                    <button class="btn btn-teal btn-sm w-100" data-bs-toggle="modal" data-bs-target="#modalGolis">
+                                        View Details <i class="fa-solid fa-arrow-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Project 5: Hospital Management System -->
+                            <div class="col-md-6 project-item tsql">
+                                <div class="project-card">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-info text-dark fw-bold">SQL Server</span>
+                                            <i class="fa-solid fa-hospital text-accent fs-4"></i>
+                                        </div>
+                                        <h4 class="h6 text-accent mb-2">Hospital-Management-System-DB</h4>
+                                        <p class="small text-sub mb-3">
+                                            A relational database designed in SQL Server for managing patient records, doctors, departments, and medical appointments.
+                                        </p>
+                                    </div>
+                                    <button class="btn btn-teal btn-sm w-100" data-bs-toggle="modal" data-bs-target="#modalHospital">
+                                        View Details <i class="fa-solid fa-arrow-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Project 6: University Database System -->
+                            <div class="col-md-6 project-item tsql">
+                                <div class="project-card">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-info text-dark fw-bold">SQL Server</span>
+                                            <i class="fa-solid fa-graduation-cap text-accent fs-4"></i>
+                                        </div>
+                                        <h4 class="h6 text-accent mb-2">University-Database-System</h4>
+                                        <p class="small text-sub mb-3">
+                                            A comprehensive relational database system built from scratch using SQL Server for Students, Courses, Faculties, and Enrollments.
+                                        </p>
+                                    </div>
+                                    <button class="btn btn-teal btn-sm w-100" data-bs-toggle="modal" data-bs-target="#modalUniversity">
+                                        View Details <i class="fa-solid fa-arrow-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Core Competencies -->
+                    <div class="glass-card p-4 p-md-5">
+                        <h3 class="h4 mb-4 d-flex align-items-center gap-3">
+                            <i class="fa-solid fa-layer-group text-accent"></i> Core Competencies
+                        </h3>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="skill-badge"><i class="fa-solid fa-database"></i> Database Engineering & DBA</span>
+                            <span class="skill-badge"><i class="fa-solid fa-code"></i> T-SQL & PL/SQL Optimization</span>
+                            <span class="skill-badge"><i class="fa-solid fa-chart-line"></i> Power BI Analytics</span>
+                            <span class="skill-badge"><i class="fa-solid fa-cubes"></i> Oracle SQL Developer</span>
+                            <span class="skill-badge"><i class="fa-solid fa-diagram-project"></i> Relational Database Design</span>
+                            <span class="skill-badge"><i class="fa-solid fa-user-shield"></i> Data Security & Multi-User Roles</span>
+                        </div>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="glass-card p-4 p-md-5">
+                        <h3 class="h4 mb-4 d-flex align-items-center gap-3">
+                            <i class="fa-solid fa-user-graduate text-accent"></i> Education
+                        </h3>
+                        <div class="timeline-item">
+                            <h4 class="h5 mb-1">Bachelor of Science in Computer Science</h4>
+                            <p class="text-accent fw-bold mb-2">Academic Degree Program</p>
+                            <p class="mb-0">Focused on database management systems, relational schema design, SQL Server administration, data security, and enterprise architecture.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- PROJECT MODALS (POPUPS) -->
+    <div class="modal fade" id="modalSchool" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-accent"><i class="fa-solid fa-chart-pie me-2"></i> Oracle-PowerBI-School-Management</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>An end-to-end Enterprise School Management Analytics project built using an Oracle SQL relational database and interactive Power BI dashboards for institutional data insight.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalHotel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-accent"><i class="fa-solid fa-hotel me-2"></i> SQL-Hotel-Management-System</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Production-ready SQL Server database & Power BI solution for hotel management, guest bookings, user role permissions, and automated database backups.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalBank" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-accent"><i class="fa-solid fa-building-columns me-2"></i> Bank-management-system-db</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>A robust relational database architecture engineered for modern retail banking systems, suitable for institutions like Salaam Somali Bank and Dahabshiil Bank.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalGolis" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-accent"><i class="fa-solid fa-users me-2"></i> Golis-Telecom-Somalia-Employee-Database</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Relational SQL database system designed for Golis Telecom to handle company branches, department hierarchies, employee payrolls, and daily attendance records.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalHospital" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-accent"><i class="fa-solid fa-hospital me-2"></i> Hospital-Management-System-DB</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>A relational database designed in SQL Server for managing patient admissions, medical staff details, doctor schedules, and appointment histories.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalUniversity" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-accent"><i class="fa-solid fa-graduation-cap me-2"></i> University-Database-System</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>A comprehensive relational database system built from scratch using SQL Server for Students, Courses, Faculties, and Enrollments with query optimization.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Project Filtering
+        function filterProjects(category, event) {
+            const items = document.querySelectorAll('.project-item');
+            const buttons = document.querySelectorAll('.glass-card .btn-outline-custom');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if(event) event.target.classList.add('active');
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Typing Effect
+        const roles = ["Database Engineer", "Database Administrator (DBA)", "Oracle & T-SQL Developer"];
+        let roleIndex = 0, charIndex = 0, isDeleting = false;
+        const typingEl = document.getElementById("typing-element");
+
+        function typeEffect() {
+            const currentRole = roles[roleIndex];
+            if (isDeleting) {
+                typingEl.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingEl.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+            if (!isDeleting && charIndex === currentRole.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeSpeed = 500;
+            }
+            setTimeout(typeEffect, typeSpeed);
+        }
+        document.addEventListener("DOMContentLoaded", typeEffect);
+
+        // Theme Toggle
+        const themeToggle = document.getElementById("theme-toggle");
+        themeToggle.addEventListener("click", () => {
+            const currentTheme = document.documentElement.getAttribute("data-bs-theme");
+            const newTheme = currentTheme === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-bs-theme", newTheme);
+            themeToggle.innerHTML = newTheme === "dark" 
+                ? '<i class="fa-solid fa-moon"></i>' 
+                : '<i class="fa-solid fa-sun"></i>';
+        });
+
+        // Particle Background
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(45, 212, 191, 0.25)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 40; i++) particles.push(new Particle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+    </script>
+</body>
+</html>
